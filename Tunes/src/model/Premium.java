@@ -6,19 +6,13 @@ import java.util.ArrayList;
 public class Premium extends Consumer {
 	
 	private ArrayList<PlayList> playlists;
-	private ArrayList<Song> songs;
-	private ArrayList<Podcast> podcasts;
+	private ArrayList<Store> songs;
 
 	public Premium (String name, String id, LocalDate date){
 		super(name, id, date);
-	}
-	
-	public Premium (String name, String id, LocalDate date, PlayList playlists, Song songs, Podcast podcasts){
-		super(name, id, date);
 		
 		this.playlists = new ArrayList<PlayList>();
-		this.songs = new ArrayList<Song>();
-		this.podcasts = new ArrayList<Podcast>();
+		this.songs = new ArrayList<Store>();
 	}
 
 	public ArrayList<PlayList> getPlaylists() {
@@ -29,25 +23,47 @@ public class Premium extends Consumer {
 		this.playlists = playlists;
 	}
 
-	public ArrayList<Song> getSongs() {
+	public ArrayList<Store> getSongs() {
 		return songs;
 	}
 
-	public void setSongs(ArrayList<Song> songs) {
+	public void setSongs(ArrayList<Store> songs) {
 		this.songs = songs;
 	}
-
-	public ArrayList<Podcast> getPodcasts() {
-		return podcasts;
+	
+	public boolean createdPlayList(String name) {
+		return playlists.add(new PlayList(name));
 	}
-
-	public void setPodcasts(ArrayList<Podcast> podcasts) {
-		this.podcasts = podcasts;
+	
+	public String showPlaylist() {
+		String msg = "";
+		
+		for (int i=0; i<playlists.size(); i++) {
+			msg += (i+1) + ". " + playlists.get(i).getName();
+		}
+		
+		if(msg == "") {
+			msg = "The usre don't have any playlist created yet";
+		}
+		
+		return msg;
+	}
+	
+	public boolean addAudioPlaylist (int posP, Audio aud) {
+		return playlists.get(posP).addAudio(aud);
+ 	}
+	
+	public boolean removeAudioPlaylist (int posP, Audio aud) {
+		return playlists.get(posP).addAudio(aud);
+	}
+	
+	public boolean addBuyedSong(Song song) {
+		return songs.add(new Store(song));
 	}
 	
 	@Override
 	public String toString() {
 		return "Standard [name=" + getName() + ", id=" + getId() + ", date=" + getDate() + ", playlists=" + playlists
-				+ ", songs=" + songs + ", podcasts=" + podcasts + "]";
+				+ ", songs=" + songs + "]";
 	}
 }

@@ -1,13 +1,15 @@
 package model;
 
-public abstract class Podcast extends Audio {
+public class Podcast extends Audio {
 	
 	private String description;
 	private Category category;
+	private String nameCC;
 	
-	public Podcast(String name, String url, double duration, int numReprod, String description, int category) {
-		super(name, url, duration, numReprod);
+	public Podcast(String name, String url, double duration, String description, int category, String nameCC) {
+		super(name, url, duration);
 		this.description = description;
+		this.nameCC = nameCC;
 		this.category = Category.values()[category];
 	}
 
@@ -26,12 +28,19 @@ public abstract class Podcast extends Audio {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
+	
+	public String reproduce() {
+		String msg = "";
+		
+		msg = "Reproducing the podcast ";
+		
+		return msg;
+	}
+	
 	@Override
 	public String toString() {
 		return "Podcast [description=" + description + ", category=" + category + "]";
 	}
-	
 	
 	
 }

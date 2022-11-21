@@ -9,10 +9,6 @@ public class Artist extends Producer{
 	
 	public Artist (String name, String id, LocalDate date, String url) {
 		super(name, id, date, url);
-	}
-	
-	public Artist (String name, String id, LocalDate date, String url, Song songs) {
-		super(name, id, date, url);
 		this.songs = new ArrayList<Song>();
 	}
 
@@ -24,7 +20,11 @@ public class Artist extends Producer{
 		this.songs = songs;
 	}
 	
+	public boolean addSong(Song sg) {
+		return songs.add(sg);
+	}
 	
-
-
+	public String toString() {
+		return "Artist: \nName: " + getName() + ", Id: " + getId() + ", Date: " + getDate();
+	}
 }

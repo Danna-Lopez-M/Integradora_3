@@ -1,23 +1,21 @@
 package model;
 
-import java.time.LocalDate;
 
-
-public abstract class Song extends Audio{
+public class Song extends Audio implements Sellable{
 	
 	private String album;
 	private Genre genre;
 	private double price;
+	private String nameArtist;
 	private int timesSold;
-	private LocalDate dateBuy;
 	
-	public Song(String name, String url, double duration, int numReprod, String album, int genre, double price, int timesSold, LocalDate dateBuy){
-		super(name, url, duration, numReprod);
+	public Song(String name, String url, double duration, String album, int genre, double price, String nameArtist){
+		super(name, url, duration);
 		this.album = album;
 		this.genre = Genre.values()[genre];
 		this.price =price;
-		this.timesSold = timesSold;
-		this.dateBuy = dateBuy;
+		this.nameArtist = nameArtist;
+		this.timesSold = 0;
 	}
 
 	public String getAlbum() {
@@ -44,6 +42,14 @@ public abstract class Song extends Audio{
 		this.price = price;
 	}
 
+	public String getNameArtist() {
+		return nameArtist;
+	}
+
+	public void setNameArtist(String nameArtist) {
+		this.nameArtist = nameArtist;
+	}
+
 	public int getTimesSold() {
 		return timesSold;
 	}
@@ -51,23 +57,21 @@ public abstract class Song extends Audio{
 	public void setTimesSold(int timesSold) {
 		this.timesSold = timesSold;
 	}
-
-	public LocalDate getDateBuy() {
-		return dateBuy;
+	
+	public String reproduce() {
+		String msg = "";
+		
+		msg = "Reproducing the song ";
+		
+		return msg;
 	}
-
-	public void setDateBuy(LocalDate dateBuy) {
-		this.dateBuy = dateBuy;
-	}
-
-	public Song(String name, String url, double duration, int numReprod, String album, Genre genre, double price,
-			int timesSold, LocalDate dateBuy) {
-		super(name, url, duration, numReprod);
-		this.album = album;
-		this.genre = genre;
-		this.price = price;
-		this.timesSold = timesSold;
-		this.dateBuy = dateBuy;
+	
+	public String sell() {
+		timesSold++;
+		String msg = "";
+		
+		msg = "The song " + getName() + " has been sold.";
+		return msg;
 	}
 	
 }

@@ -1,17 +1,17 @@
 package model;
 
-public abstract class Audio {
+public abstract class Audio implements Playable{
 	
 	private String name;
 	private String url;
 	private double duration;
 	private int numReprod;
 	
-	public Audio(String name, String url, double duration, int numReprod) {
+	public Audio(String name, String url, double duration) {
 		this.name = name;
 		this.url = url;
 		this.duration = duration;
-		this.numReprod = numReprod;
+		this.numReprod = 0;
 	}
 
 	public String getName() {
@@ -44,6 +44,10 @@ public abstract class Audio {
 
 	public void setNumReprod(int numReprod) {
 		this.numReprod = numReprod;
+	}
+	
+	public void changeNumReprod() {
+		numReprod++;
 	}
 
 	@Override

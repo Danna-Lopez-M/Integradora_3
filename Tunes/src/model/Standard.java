@@ -1,29 +1,18 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.time.LocalDate;
 
 public class Standard extends Consumer {
 	
 	private PlayList[] playlists;
-	private Song[] songs;
-	private ArrayList<Podcast> podcasts;
-	private int playedAudio;
-	private double minReprod;
+	private Store[] buySongs;
 	
 	public Standard(String name, String id, LocalDate date){
 		super(name, id, date);
-	}
-	
-	public Standard(String name, String id, LocalDate date, PlayList[] playlists, Song[] songs, Podcast  podcasts, int playedAudio){
-		super(name, id, date);
 		
 		this.playlists = new PlayList[20];
-		this.songs = new Song[100];
-		this.podcasts = new ArrayList<Podcast>();
-		this.playedAudio = playedAudio;
-		
+		this.buySongs = new Store[100];
 	}
 
 	public PlayList[] getPlaylists() {
@@ -34,35 +23,61 @@ public class Standard extends Consumer {
 		this.playlists = playlists;
 	}
 
-	public Song[] getSongs() {
-		return songs;
+	public Store[] getBuySongs() {
+		return buySongs;
 	}
 
-	public void setSongs(Song[] songs) {
-		this.songs = songs;
+	public void setBuySongs(Store[] buySongs) {
+		this.buySongs = buySongs;
 	}
 
-	public ArrayList<Podcast> getPodcasts() {
-		return podcasts;
+	public void createdPlayList(String name) {
+		for (int i=0; i<playlists.length; i++) {
+			if (playlists[i] == null) {
+				playlists[i] = new PlayList(name);
+			}
+		}
 	}
-
-	public void setPodcasts(ArrayList<Podcast> podcasts) {
-		this.podcasts = podcasts;
+	
+	public String showPlaylist() {
+		String msg = "";
+		
+		for (int i=0; i<playlists.length; i++) {
+			msg += (i+1) + ". " + playlists[i].getName();
+		}
+		
+		if(msg == "") {
+			msg = "The user don't have any playlist created yet";
+		}
+		
+		return msg;
 	}
-
-	public int getPlayedAudio() {
-		return playedAudio;
+	
+	public boolean addAudioPlaylist (int posP, Audio aud) {
+		return playlists[posP].addAudio(aud);	
 	}
-
-	public void setPlayedAudio(int playedAudio) {
-		this.playedAudio = playedAudio;
+	
+	public boolean removeAudioPlaylist (int posP, Audio aud) {
+		return playlists[posP].removeAudio(aud);
 	}
-
+	
+	public boolean addBuyedSong(Song song) {
+		boolean control = false;
+		
+		for (int i=0; i<buySongs.length; i++) {
+			if(buySongs[i]==null) {
+				buySongs[i] = new Store(song);
+				control = true;
+			}
+		}
+		
+		return control;
+	}
+	
 	@Override
 	public String toString() {
-		return "Standard [name=" + getName() + ", id=" + getId() + ", date=" + getDate() + ", playlists=" + Arrays.toString(playlists)
-				+ ", songs=" + Arrays.toString(songs) + ", podcasts=" + podcasts + ", playedAudio=" + playedAudio
-				+ ", minReprod=" + minReprod + "]";
+		return "Standard [name=" + getName() + ", id=" + getId() + ", date=" + getDate() + ", Buyed songs=" + Arrays.toString(buySongs) 
+			+ ", playedAudio=" + getReprodSongs() + getReprodPodcast() + ", minReprod=" + getSecReprod() + "]";
 	}
 	
 	
